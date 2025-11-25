@@ -21,11 +21,8 @@ class TestCumulusciYml:
         cciyml = parse_from_yaml("cumulusci.yml")
         assert cciyml.project.package.name == "CumulusCI"
         assert cciyml["project"]["package"]["name"] == "CumulusCI"
-        assert (
-            cciyml.tasks["robot"].options["suites"]
-            == cciyml["tasks"]["robot"]["options"]["suites"]
-            == "cumulusci/robotframework/tests"
-        )
+        # Verify tasks exist (robot tasks have been removed)
+        assert "tasks" in cciyml
 
     def test_cumulusci_cumulusci_yaml(self, cumulusci_test_repo_root):
         cciyml = parse_from_yaml(cumulusci_test_repo_root / "cumulusci/cumulusci.yml")

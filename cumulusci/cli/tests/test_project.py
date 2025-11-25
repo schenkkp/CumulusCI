@@ -71,19 +71,13 @@ class TestProjectCommands:
                 "orgs/dev.json",
                 "orgs/feature.json",
                 "orgs/release.json",
-                "robot/",
-                "robot/testproj/",
-                "robot/testproj/doc/",
-                "robot/testproj/resources/",
-                "robot/testproj/tests/",
-                "robot/testproj/tests/create_contact.robot",
                 "sfdx-project.json",
                 "src/",
             ] == recursive_list_files()
 
     @mock.patch("cumulusci.cli.project.click")
     def test_project_init_tasks(self, click):
-        """Verify that the generated cumulusci.yml file is readable and has the proper robot task"""
+        """Verify that the generated cumulusci.yml file is readable and has the expected tasks"""
         with temporary_dir():
             os.mkdir(".git")
             Path(".git", "HEAD").write_text("ref: refs/heads/main")
@@ -114,21 +108,9 @@ class TestProjectCommands:
             # verify we can load the generated yml
             cli_runtime = CliRuntime(load_keychain=False)
 
-            # ...and verify it has the expected tasks
+            # ...and verify it has the expected tasks (robot tasks have been removed)
             config = cli_runtime.project_config.config_project
             expected_tasks = {
-                "robot": {
-                    "options": {
-                        "suites": "robot/testproj/tests",
-                        "options": {"outputdir": "robot/testproj/results"},
-                    }
-                },
-                "robot_testdoc": {
-                    "options": {
-                        "path": "robot/testproj/tests",
-                        "output": "robot/testproj/doc/testproj_tests.html",
-                    }
-                },
                 "run_tests": {"options": {"required_org_code_coverage_percent": 90}},
             }
             assert config["tasks"] == expected_tasks

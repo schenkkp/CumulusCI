@@ -20,40 +20,6 @@ sources:
         branch: main
 
 tasks:
-    robot:
-        options:
-            suites: cumulusci/robotframework/tests
-            options:
-                outputdir: robot/CumulusCI/results
-                skiponfailure: noncritical # allows testing failure conditions
-
-    robot_testdoc:
-        options:
-            path: cumulusci/robotframework/tests
-            output: docs/robot/Test_Suite.html
-    robot_lint:
-        options:
-            path:
-                - cumulusci/robotframework
-            ignore:
-                - RequireTestDocumentation
-    robot_libdoc:
-        description: Generates html documentation for the Salesorce and CumulusCI libraries and resource files
-        class_path: cumulusci.tasks.robotframework.RobotLibDoc
-        options:
-            title: CumulusCI Robot Framework Keywords
-            output: docs/robot/Keywords.html
-            path:
-                - cumulusci.robotframework.CumulusCI
-                - cumulusci.robotframework.PageObjects
-                - cumulusci.robotframework.Performance
-                - cumulusci.robotframework.Salesforce
-                - cumulusci/robotframework/Salesforce.robot
-                - cumulusci.robotframework.SalesforceAPI
-                - cumulusci/robotframework/SalesforcePlaywright.robot
-                - cumulusci.robotframework.SalesforcePlaywright
-                - cumulusci/robotframework/pageobjects/BasePageObjects.py
-
     # to be used with the person_accounts org definition
     test_load_person_accounts:
         class_path: cumulusci.tasks.bulkdata.load.LoadData
@@ -62,28 +28,6 @@ tasks:
             mapping: cumulusci/tasks/bulkdata/tests/person_accounts.yml
 
 flows:
-    robot_docs:
-        description: Generates documentation for robot framework libraries
-        steps:
-            1:
-                task: robot_libdoc
-            2:
-                task: robot_testdoc
-    test_performance_scratch:
-        description: Test performance of a scratch org
-        steps:
-            1:
-                task: robot
-                options:
-                    suites: cumulusci/robotframework/perftests/short
-    test_performance_LDV:
-        description: Test performance in an LDV org
-        steps:
-            1:
-                task: robot
-                options:
-                    suites: cumulusci/robotframework/perftests
-
     test_run_tests:
         description: Test the run_tests task in a CumulusCI-Test org
         steps:

@@ -43,15 +43,10 @@ dependencies = [
     "requests",
     "requests-futures",
     "rich>=13.9.4",
-    "robotframework",
     "SQLAlchemy<2",
-    "robotframework-pabot",
-    "robotframework-requests",
-    "robotframework-seleniumlibrary<6",
     "rst2ansi>=0.1.5",
     "salesforce-bulk",
     "sarge",
-    "selenium<4",
     "simple-salesforce==1.11.4",
     "snowfakery>=4.1.0",
     "xmltodict",
@@ -161,8 +156,6 @@ markers = [ # note that some are also defined in code. Search for addinivalue_li
 filterwarnings = [
     "error:ClassMovedWarning",
     "ignore::DeprecationWarning:.*.rflint",
-    "ignore::DeprecationWarning:.*.selenium",
-    "ignore::SyntaxWarning:.*.selenium",
 ]
 
 [tool.isort]
@@ -170,7 +163,6 @@ profile = "black"
 multi_line_output = 3
 skip_glob = "cumulusci/**/__init__.py"
 known_first_party = "cumulusci"
-known_third_party = "robot"
 
 [tool.pyright]
 reportMissingImports = "none"
@@ -205,10 +197,6 @@ include = [
     'cumulusci/core/template_utils.py',
     'cumulusci/oauth/__init__.py',
     'cumulusci/oauth/exceptions.py',
-    'cumulusci/robotframework/__init__.py',
-    'cumulusci/robotframework/locator_manager.py',
-    'cumulusci/robotframework/pageobjects/PageObjectLibrary.py',
-    'cumulusci/robotframework/pageobjects/__init__.py',
     'cumulusci/salesforce_api/__init__.py',
     'cumulusci/salesforce_api/exceptions.py',
     'cumulusci/salesforce_api/filterable_objects.py',
@@ -246,9 +234,6 @@ include = [
     'cumulusci/tasks/release_notes/__init__.py',
     'cumulusci/tasks/release_notes/exceptions.py',
     'cumulusci/tasks/release_notes/parser.py',
-    'cumulusci/tasks/robotframework/__init__.py',
-    'cumulusci/tasks/robotframework/debugger/__init__.py',
-    'cumulusci/tasks/robotframework/debugger/model.py',
     'cumulusci/tasks/salesforce/BaseRetrieveMetadata.py',
     'cumulusci/tasks/salesforce/BaseSalesforceTask.py',
     'cumulusci/tasks/salesforce/GetInstalledPackages.py',
@@ -267,7 +252,6 @@ include = [
     'cumulusci/utils/salesforce/count_sobjects.py',
     'cumulusci/tests/util.py',
     'cumulusci/utils/waiting.py',
-    'cumulusci/utils/xml/robot_xml.py',
     'cumulusci/utils/ziputils.py',
 ]
 # Do not add to this list. Instead use
@@ -284,7 +268,6 @@ strict = [
     'cumulusci/core/source_transforms/__init__.py',
     'cumulusci/oauth/__init__.py',
     'cumulusci/oauth/exceptions.py',
-    'cumulusci/robotframework/locators_*.py',
     'cumulusci/salesforce_api/__init__.py',
     'cumulusci/salesforce_api/filterable_objects.py',
     'cumulusci/salesforce_api/mc_soap_envelopes.py',

@@ -265,8 +265,6 @@ class PushApiObjectNotFound(CumulusCIException):
     pass
 
 
-class RobotTestFailure(CumulusCIFailure):
-    """Raise when a robot test fails in a test suite"""
 
     pass
 

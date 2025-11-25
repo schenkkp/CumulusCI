@@ -501,16 +501,15 @@ def test_run_task_debug(get_tempfile_logger):
 @mock.patch("pdb.post_mortem", MagicMock())
 @mock.patch("cumulusci.cli.cci.tee_stdout_stderr", MagicMock())
 @mock.patch("cumulusci.cli.cci.init_logger", MagicMock())
-@mock.patch("cumulusci.tasks.robotframework.RobotLibDoc", MagicMock())
 @mock.patch("cumulusci.cli.cci.get_tempfile_logger")
 def test_run_flow_debug(get_tempfile_logger):
     get_tempfile_logger.return_value = (mock.Mock(), "tempfile.log")
-    rtd = "cumulusci.tasks.robotframework.RobotTestDoc._run_task"
-
-    with mock.patch(rtd, mock_validate_debug(False)):
-        cci.main(["cci", "flow", "run", "robot_docs"])
-    with mock.patch(rtd, mock_validate_debug(True)):
-        cci.main(["cci", "flow", "run", "robot_docs", "--debug"])
+    # Note: robot_docs flow has been removed, using a different flow for testing
+    # This test verifies debug mode works with flows
+    with mock.patch("cumulusci.core.flowrunner.FlowCoordinator.run", mock_validate_debug(False)):
+        cci.main(["cci", "flow", "run", "do_nothing"])
+    with mock.patch("cumulusci.core.flowrunner.FlowCoordinator.run", mock_validate_debug(True)):
+        cci.main(["cci", "flow", "run", "do_nothing", "--debug"])
 
 
 def mock_validate_debug(value):

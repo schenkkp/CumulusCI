@@ -289,25 +289,6 @@ def init_from_context(context: Dict[str, object], echo: bool = False):
                 )
             )
 
-    # create robot folder structure and starter files
-    if not os.path.isdir("robot"):
-        test_folder = os.path.join("robot", context["project_name"], "tests")
-        resource_folder = os.path.join("robot", context["project_name"], "resources")
-        doc_folder = os.path.join("robot", context["project_name"], "doc")
-
-        os.makedirs(test_folder)
-        os.makedirs(resource_folder)
-        os.makedirs(doc_folder)
-        test_src = os.path.join(
-            cumulusci.__location__,
-            "robotframework",
-            "tests",
-            "salesforce",
-            "create_contact.robot",
-        )
-        test_dest = os.path.join(test_folder, "create_contact.robot")
-        shutil.copyfile(test_src, test_dest)
-
     # Create pull request template
     if not os.path.isdir(".github"):
         os.mkdir(".github")
